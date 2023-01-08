@@ -11,9 +11,9 @@ A partir de aquí hemos arrancado primero Zookeeper y después Kafka:
 Creamos nuestros los topic:
 	(Topic para mensajes manual 1)
 	<KAFKA_HOME>/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-stream-in
-	(Topic para mensajes manual 2)
+	(Topic para mensajes automàtico)
 	<KAFKA_HOME>/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-stream-out
-	
+	(Topic para mensajes manual 2)
 	<KAFKA_HOME>/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-stream-out2
 	(Topic para mostrar longitud de cadena y cantidad de palabras por mensaje de todos los productores)
 	<KAFKA_HOME>/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-stream-out3
@@ -24,13 +24,20 @@ Creamos nuestros los topic:
 Después hemos comprobado que realmente ambos topics se han generado correctamente:
 
 	<KAFKA_HOME>/bin/kafka-topics.sh --list --bootstrap-server localhost:9092
-	
-Nos conectamos al topic de entrada y nos suscribimos al de salida
-	<KAFKA_HOME>/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test-stream-in
+		test-stream
+		test-stream-in
+		test-stream-out
+		test-stream-out2
+		test-stream-out3
 
-	<KAFKA_HOME>/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-stream-out --from-beginning
+Nos conectamos al topic de entrada y nos suscribimos al de salida
+	<KAFKA_HOME>/app1/kafka1.java (Script para generar mensajes aleatorios)
+	<KAFKA_HOME>/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test-stream-in
+	<KAFKA_HOME>/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test-stream
 	
-Recordad que de momento estos dos topics(O listas) no están conectadas porque todaví­a no tenemos la aplicación que lo hace.
+	(Consumidor para los mensajes automaticos "script")
+	<KAFKA_HOME>/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-stream-out --from-beginning
+
 
 Arrancamos nuesto IDE favorito creamos nuestro proyecto maven
 Arrancamos nuestro IDE favorito, en este caso Eclipse IDE y creamos un proyecto maven(Aunque también podrí­amos hacerlo con Gradle). Después añadimos las siguientes dependencias al proyecto:

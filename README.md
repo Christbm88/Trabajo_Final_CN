@@ -53,4 +53,4 @@ Arrancamos nuestro proyecto "index.js"
 Arrancamos nuestro proyecto WCkafka1.java, kafka1.java
 
 
-
+![Aquí la descripción de la imagen por si no carga](https://github.com/Christbm88/Trabajo_Final_CN/blob/main/img/Captura%20desde%202023-01-08%2013-51-08.png)

@@ -9,6 +9,7 @@ A partir de aquí hemos arrancado primero Zookeeper y después Kafka:
 	<KAFKA_HOME>/bin/kafka-server-start.sh config/server.properties
 
 Creamos nuestros los topic:
+
 	(Topic para mensajes manual 1)
 	<KAFKA_HOME>/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-stream-in
 	(Topic para mensajes automàtico)
@@ -31,66 +32,25 @@ Después hemos comprobado que realmente ambos topics se han generado correctamen
 		test-stream-out3
 
 Nos conectamos al topic de entrada y nos suscribimos al de salida
-	<KAFKA_HOME>/app1/kafka1.java (Script para generar mensajes aleatorios)
+
+	<KAFKA_HOME>/app1/index.js (Script para generar mensajes aleatorios)
 	<KAFKA_HOME>/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test-stream-in
 	<KAFKA_HOME>/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test-stream
 	
-	(Consumidor para los mensajes automaticos "script")
+	(Consumidor para los mensajes automaticos "index.js")
 	<KAFKA_HOME>/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-stream-out --from-beginning
+	<KAFKA_HOME>/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-stream-in --from-beginning
+	<KAFKA_HOME>/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-stream-out2 --from-beginning
+	<KAFKA_HOME>/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-stream-out3 --from-beginning \
+	> --formatter kafka.tools.DefaultMessageFormatter \
+	> --property print.key=true \
+	> --property print.value=true \
+	> --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+	> --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
 
 
-Arrancamos nuesto IDE favorito creamos nuestro proyecto maven
-Arrancamos nuestro IDE favorito, en este caso Eclipse IDE y creamos un proyecto maven(Aunque también podrí­amos hacerlo con Gradle). Después añadimos las siguientes dependencias al proyecto:
+Arrancamos nuestro proyecto "index.js"
+Arrancamos nuestro proyecto WCkafka1.java, kafka1.java
 
-<dependency>
-	<groupId>org.apache.kafka</groupId>
-	<artifactId>kafka-streams</artifactId>
-	<version>2.6.0</version>
-</dependency>
-Seguidamente ya podemos empezar a programar nuestra Kafka Streams App:
-
-package com.lostsys.youtube.kafka;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Properties;
-import java.util.regex.Pattern;
-
-import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.common.utils.Bytes;
-import org.apache.kafka.streams.KafkaStreams;
-import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.StreamsConfig;
-import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.Materialized;
-import org.apache.kafka.streams.state.KeyValueStore;
-
-public class StreamsDemo {
-
-	public static void main(String[] args) {
-
-	       Properties props = new Properties();
-	        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "lostsys-kafka-sample");
-	        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-	        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-	        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-
-	        final StreamsBuilder builder = new StreamsBuilder();
-	        final KStream<String, String> source = builder.stream("test-stream-in");
-	        
-	        source.flatMapValues(value -> {
-	        	ArrayList<String> r=new ArrayList<String>();
-	        			
-	        	r.add("{ word: '"+value+"', length: "+value.length()+", words: "+value.split(" ").length+" }");
-	        			
-	        	return r;
-	        	})
-	                .to("test-stream-out");
-
-	        final KafkaStreams streams = new KafkaStreams(builder.build(), props);
-	        streams.start();
-		}	
-	
-	}
 
 

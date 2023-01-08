@@ -9,10 +9,17 @@ A partir de aquí hemos arrancado primero Zookeeper y después Kafka:
 	<KAFKA_HOME>/bin/kafka-server-start.sh config/server.properties
 
 Creamos nuestros los topic:
-
+	(Topic para mensajes manual 1)
 	<KAFKA_HOME>/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-stream-in
-
+	(Topic para mensajes manual 2)
 	<KAFKA_HOME>/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-stream-out
+	
+	<KAFKA_HOME>/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-stream-out2
+	(Topic para mostrar longitud de cadena y cantidad de palabras por mensaje de todos los productores)
+	<KAFKA_HOME>/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-stream-out3
+	(Topic para la salida de Wordcount)
+	<KAFKA_HOME>/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test-stream
+
 	
 Después hemos comprobado que realmente ambos topics se han generado correctamente:
 

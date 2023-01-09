@@ -1,4 +1,12 @@
 # Trabajo_Final_CN
+
+Integrantes Grupo 9:
+- Christian Néstor Barriga Marcapura
+- Weimar Ccapatina Huamani
+- Abel Eberth Ojeda Mamani
+- Roger Gutiérrez Espinoza
+
+
 Instalar y arrancar Kafka
 Descargar y descomprimir Kafka de la URL https://kafka.apache.org/. Este es todo el proceso de instalación.
 

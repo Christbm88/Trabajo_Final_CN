@@ -6,6 +6,7 @@ Integrantes Grupo 9:
 - Abel Eberth Ojeda Mamani
 - Roger Gutiérrez Espinoza
 
+link video: https://drive.google.com/file/d/1urlkgQplRXUEL_2pAsArCE5bcrT92AzU/view?usp=sharing
 #
 Instalar y arrancar Kafka
 Descargar y descomprimir Kafka de la URL https://kafka.apache.org/. Este es todo el proceso de instalación.
